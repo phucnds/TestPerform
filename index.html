@@ -6,17 +6,15 @@
     <title>Unity WebGL Player | Sieuvutru</title>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=1216 height=1624 style="width: 1216px; height: 1624px; background: #231F20"></canvas>
-    <script src="Build/BuildNewUI.loader.js"></script>
-    <script type="module">
-        async function importLib() {
-          var lib = await import('./js/index.js');
-          window.services_wsgw = lib.default;
-          return lib;
-        }
-        importLib();
-      </script>
-    <script>
+      <canvas id="unity-canvas" width=1216 height=1624 style="width: 1216px; height: 1624px; background: #231F20"></canvas>
+      <script src="Build/BuildNewUI.loader.js"></script>
+      <script type="module">async function importLib() {
+              var lib = await import('./js/index.js');
+              window.services_wsgw = lib.default;
+              return lib;
+          }
+          importLib();</script>
+      <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
         var meta = document.createElement('meta');
@@ -34,15 +32,15 @@
         var tryToResumeAudioContext = function () {
             if (WEBAudio.audioContext.state === 'suspended')
                 WEBAudio.audioContext.resume();
-            
+
         };
-        
+
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/59c30f13b39259392dec7231ed364ecc.data.unityweb",
-        frameworkUrl: "Build/2b17d9c9a37ef2a4d12fafa8fc024c05.js.unityweb",
-        codeUrl: "Build/06138f7e249cc155d06dbf03c5ddd6c5.wasm.unityweb",
+        dataUrl: "Build/6626425f46c1eff7aff3ea2a8305500f.data.unityweb",
+        frameworkUrl: "Build/aeca25670eb6850a912751b76c5f8c29.js.unityweb",
+        codeUrl: "Build/ea312e3e16780f8a6a10017d88a43d6d.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "ElofunCompany",
         productName: "Sieuvutru",
@@ -52,7 +50,9 @@
       }).then((unityInstance) => {
       window.unityInstance = unityInstance;
     });
-    </script>
-    <iframe id="game-iframe" src="" allow="autoplay" style="width: 100%;height: 100%;position: absolute;z-index: 9999;top:0;left:0;display:none;"></iframe>
+      </script>
+      <iframe id="game-iframe" src="" allow="autoplay" style="width: 100%;height: 100%;position: absolute;z-index: 9999;top:0;left:0;display:none;">
+      </iframe>
+
   </body>
 </html>
