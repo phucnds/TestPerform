@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Sieuvutru</title>
+    <title>Unity WebGL Player | SAvatar</title>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
       <canvas id="unity-canvas" width=1216 height=1624 style="width: 1216px; height: 1624px; background: #231F20"></canvas>
-      <script src="Build/BuildNewUI.loader.js"></script>
+      <script src="Build/SAvatar.loader.js"></script>
       <script type="module">async function importLib() {
               var lib = await import('./js/index.js');
               window.services_wsgw = lib.default;
@@ -29,7 +29,7 @@
 
         document.body.style.textAlign = "left";
 
-        var tryToResumeAudioContext = function () {
+          var tryToResumeAudioContext = function () {
             if (WEBAudio.audioContext.state === 'suspended')
                 WEBAudio.audioContext.resume();
 
@@ -38,12 +38,12 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/8bb0acd8fd75626dc399fc03b789a756.data.unityweb",
-        frameworkUrl: "Build/b67b2588701fff5fd79a48fd9d34adea.js.unityweb",
-        codeUrl: "Build/edf460af84e9182e43b0193fcf86ac57.wasm.unityweb",
+        dataUrl: "Build/SAvatar.data.unityweb",
+        frameworkUrl: "Build/SAvatar.framework.js.unityweb",
+        codeUrl: "Build/SAvatar.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-        companyName: "ElofunCompany",
-        productName: "Sieuvutru",
+        companyName: "DefaultCompany",
+        productName: "SAvatar",
         productVersion: "0.1",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
