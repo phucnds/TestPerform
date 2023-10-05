@@ -6,6 +6,11 @@
     <title>Unity WebGL Player | SAvatar</title>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <script src="./vconsole.min.js"></script>
+<script type="text/javascript">
+    // open web debugger console
+    window.VConsole && (window.vConsole = new VConsole());
+</script>
       <canvas id="unity-canvas" width=1216 height=1624 style="width: 1216px; height: 1624px; background: #231F20"></canvas>
       <script src="Build/SAvatar.loader.js"></script>
       <script type="module">async function importLib() {
