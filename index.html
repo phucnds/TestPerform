@@ -1,109 +1,40 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | SAvatar</title>
-    <style>
-        @keyframes rotate {
-            from {
-                transform: translate(-50%, 0) rotate(0deg);
-            }
+    <title>Unity WebGL Player | TestKeyBoard</title>
+  </head>
+  <body style="text-align: center; padding: 0; border: 0; margin: 0;">
+    <canvas id="unity-canvas" width=375 height=812 style="width: 375px; height: 812px; background: #231F20"></canvas>
+    <script src="Build/Keyboard.loader.js"></script>
+    <script>
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
 
-            to {
-                transform: translate(-50%, 0) rotate(360deg);
-            }
-        }
+        var canvas = document.querySelector("#unity-canvas");
+        canvas.style.width = "100%";
+        canvas.style.height = "100%";
+        canvas.style.position = "fixed";
 
-        #bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url(./img/bg.jpg) no-repeat center;
-            background-size: cover;
-            z-index: 1;
-        }
+        document.body.style.textAlign = "left";
+      }
 
-        #loading {
-            position: absolute;
-            z-index: 1;
-            height: auto;
-            width: auto;
-            transform: translate(-50%, 0) rotate(0deg);
-            left: 50%;
-            bottom: 23vh;
-            animation-name: rotate;
-            animation-duration: 1s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-
-<body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <div id="bg"></div>
-    <img src="./img/loading.png" id="loading" />
-    <script src="./vconsole.min.js"></script>
-    <script type="text/javascript">// open web debugger console
-        window.VConsole && (window.vConsole = new VConsole());</script>
-    <canvas id="unity-canvas" width=1216 height=1624 style="width: 1216px; height: 1624px; background: #231F20"></canvas>
-    <script src="Build/SAvatar.loader.js"></script>
-    <script type="module">async function importLib() {
-            var lib = await import('./js/index.js');
-            window.services_wsgw = lib.default;
-            return lib;
-        }
-        importLib();</script>
-    <script>if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            // Mobile device style: fill the whole browser client area with the game canvas:
-            var meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-            document.getElementsByTagName('head')[0].appendChild(meta);
-
-            var canvas = document.querySelector("#unity-canvas");
-            canvas.style.width = "100%";
-            canvas.style.height = "100%";
-            canvas.style.position = "fixed";
-
-            document.body.style.textAlign = "left";
-
-            var tryToResumeAudioContext = function () {
-                if (WEBAudio.audioContext.state === 'suspended')
-                    WEBAudio.audioContext.resume();
-
-            };
-
-        }
-
-        createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/SAvatar.data.unityweb",
-            frameworkUrl: "Build/SAvatar.framework.js.unityweb",
-            codeUrl: "Build/SAvatar.wasm.unityweb",
-            streamingAssetsUrl: "StreamingAssets",
-            companyName: "DefaultCompany",
-            productName: "SAvatar",
-            productVersion: "0.1",
-            // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-            // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
-        }).then((unityInstance) => {
-            window.unityInstance = unityInstance;
-            var div = document.getElementById('bg');
-            var loader = document.getElementById('loading');
-            div.classList.add('hidden');
-            loader.classList.add('hidden');
-        });</script>
-    <iframe id="game-iframe" src="" allow="autoplay"
-            style="width: 100%;height: 100%;position: absolute;z-index: 9999;top:0;left:0;display:none;">
-    </iframe>
-
-</body>
-
+      createUnityInstance(document.querySelector("#unity-canvas"), {
+        dataUrl: "Build/Keyboard.data.unityweb",
+        frameworkUrl: "Build/Keyboard.framework.js.unityweb",
+        codeUrl: "Build/Keyboard.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "DefaultCompany",
+        productName: "TestKeyBoard",
+        productVersion: "0.1",
+        // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
+        // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+      });
+    </script>
+  </body>
 </html>
