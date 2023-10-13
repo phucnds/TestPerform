@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | TestKeyBoard</title>
+    <title>Unity WebGL Player | WebGLInput</title>
   </head>
   <body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <canvas id="unity-canvas" width=375 height=812 style="width: 375px; height: 812px; background: #231F20"></canvas>
-    <script src="Build/Keyboard.loader.js"></script>
+    <canvas id="unity-canvas" width=960 height=600 style="width: 960px; height: 600px; background: #231F20"></canvas>
+    <script src="Build/Inputz.loader.js"></script>
     <script>
       if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
         // Mobile device style: fill the whole browser client area with the game canvas:
@@ -25,12 +25,12 @@
       }
 
       createUnityInstance(document.querySelector("#unity-canvas"), {
-        dataUrl: "Build/Keyboard.data.unityweb",
-        frameworkUrl: "Build/Keyboard.framework.js.unityweb",
-        codeUrl: "Build/Keyboard.wasm.unityweb",
+        dataUrl: "Build/Inputz.data.unityweb",
+        frameworkUrl: "Build/Inputz.framework.js.unityweb",
+        codeUrl: "Build/Inputz.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
         companyName: "DefaultCompany",
-        productName: "TestKeyBoard",
+        productName: "WebGLInput",
         productVersion: "0.1",
         // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
         // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
