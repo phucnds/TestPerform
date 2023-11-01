@@ -1,109 +1,119 @@
 <!DOCTYPE html>
 <html lang="en-us">
-
-<head>
+  <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | SAvatar</title>
-    <style>
-        @keyframes rotate {
-            from {
-                transform: translate(-50%, 0) rotate(0deg);
-            }
+    <title>Unity WebGL Player | Avatar_SDK_MetaPerson2.0</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="unity-container" class="unity-desktop">
+      <canvas id="unity-canvas" width=960 height=600></canvas>
+      <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+          <div id="unity-progress-bar-full"></div>
+        </div>
+      </div>
+      <div id="unity-warning"> </div>
+      <div id="unity-footer">
+        <div id="unity-webgl-logo"></div>
+        <div id="unity-fullscreen-button"></div>
+        <div id="unity-build-title">Avatar_SDK_MetaPerson2.0</div>
+      </div>
+    </div>
+    <script>
+      var container = document.querySelector("#unity-container");
+      var canvas = document.querySelector("#unity-canvas");
+      var loadingBar = document.querySelector("#unity-loading-bar");
+      var progressBarFull = document.querySelector("#unity-progress-bar-full");
+      var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+      var warningBanner = document.querySelector("#unity-warning");
 
-            to {
-                transform: translate(-50%, 0) rotate(360deg);
-            }
+      // Shows a temporary message banner/ribbon for a few seconds, or
+      // a permanent error message on top of the canvas if type=='error'.
+      // If type=='warning', a yellow highlight color is used.
+      // Modify or remove this function to customize the visually presented
+      // way that non-critical warnings and error messages are presented to the
+      // user.
+      function unityShowBanner(msg, type) {
+        function updateBannerVisibility() {
+          warningBanner.style.display = warningBanner.children.length ? 'block' : 'none';
         }
-
-        #bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url(./img/bg.jpg) no-repeat center;
-            background-size: cover;
-            z-index: 1;
+        var div = document.createElement('div');
+        div.innerHTML = msg;
+        warningBanner.appendChild(div);
+        if (type == 'error') div.style = 'background: red; padding: 10px;';
+        else {
+          if (type == 'warning') div.style = 'background: yellow; padding: 10px;';
+          setTimeout(function() {
+            warningBanner.removeChild(div);
+            updateBannerVisibility();
+          }, 5000);
         }
+        updateBannerVisibility();
+      }
 
-        #loading {
-            position: absolute;
-            z-index: 1;
-            height: auto;
-            width: auto;
-            transform: translate(-50%, 0) rotate(0deg);
-            left: 50%;
-            bottom: 23vh;
-            animation-name: rotate;
-            animation-duration: 1s;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-        }
-
-        .hidden {
-            display: none;
-        }
-    </style>
-</head>
-
-<body style="text-align: center; padding: 0; border: 0; margin: 0;">
-    <div id="bg"></div>
-    <img src="./img/loading.png" id="loading" />
-    <script src="./vconsole.min.js"></script>
-    <!--<script type="text/javascript">// open web debugger console
-        window.VConsole && (window.vConsole = new VConsole());</script>-->
-<canvas id="unity-canvas" width=1216 height=1624
-    style="width: 1216px; height: 1624px; background: #231F20"></canvas>
-    <script src="Build/SAvatars.loader.js"></script>
-    <script type="module">async function importLib() {
-            var lib = await import('./js/index.js');
-            window.services_wsgw = lib.default;
-            return lib;
-        }
-        importLib();</script>
-    <script>if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
-            // Mobile device style: fill the whole browser client area with the game canvas:
-            var meta = document.createElement('meta');
-            meta.name = 'viewport';
-            meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
-            document.getElementsByTagName('head')[0].appendChild(meta);
-
-            var canvas = document.querySelector("#unity-canvas");
-            canvas.style.width = "100%";
-            canvas.style.height = "100%";
-            canvas.style.position = "fixed";
-
-            document.body.style.textAlign = "left";
-
-            var tryToResumeAudioContext = function () {
-                if (WEBAudio.audioContext.state === 'suspended')
-                    WEBAudio.audioContext.resume();
-            };
-
-        }
-
-        createUnityInstance(document.querySelector("#unity-canvas"), {
-                    dataUrl: "Build/SAvatars.data.unityweb",
-            frameworkUrl: "Build/SAvatars.framework.js.unityweb",
-        codeUrl: "Build/SAvatars.wasm.unityweb",
+      var buildUrl = "Build";
+      var loaderUrl = buildUrl + "/AvatarBM.loader.js";
+      var config = {
+        dataUrl: buildUrl + "/AvatarBM.data.unityweb",
+        frameworkUrl: buildUrl + "/AvatarBM.framework.js.unityweb",
+        codeUrl: buildUrl + "/AvatarBM.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
-            companyName: "DefaultCompany",
-            productName: "SAvatar",
-            productVersion: "0.1",
-            // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
-            // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
+        companyName: "DefaultCompany",
+        productName: "Avatar_SDK_MetaPerson2.0",
+        productVersion: "0.1",
+        showBanner: unityShowBanner,
+      };
+
+      // By default, Unity keeps WebGL canvas render target size matched with
+      // the DOM size of the canvas element (scaled by window.devicePixelRatio)
+      // Set this to false if you want to decouple this synchronization from
+      // happening inside the engine, and you would instead like to size up
+      // the canvas DOM size and WebGL render target sizes yourself.
+      // config.matchWebGLToCanvasSize = false;
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // Mobile device style: fill the whole browser client area with the game canvas:
+
+        var meta = document.createElement('meta');
+        meta.name = 'viewport';
+        meta.content = 'width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes';
+        document.getElementsByTagName('head')[0].appendChild(meta);
+        container.className = "unity-mobile";
+        canvas.className = "unity-mobile";
+
+        // To lower canvas resolution on mobile devices to gain some
+        // performance, uncomment the following line:
+        // config.devicePixelRatio = 1;
+
+        unityShowBanner('WebGL builds are not supported on mobile devices.');
+      } else {
+        // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
+
+        canvas.style.width = "960px";
+        canvas.style.height = "600px";
+      }
+
+      loadingBar.style.display = "block";
+
+      var script = document.createElement("script");
+      script.src = loaderUrl;
+      script.onload = () => {
+        createUnityInstance(canvas, config, (progress) => {
+          progressBarFull.style.width = 100 * progress + "%";
         }).then((unityInstance) => {
-            window.unityInstance = unityInstance;
-            var div = document.getElementById('bg');
-            var loader = document.getElementById('loading');
-            div.classList.add('hidden');
-            loader.classList.add('hidden');
-        });</script>
-    <iframe id="game-iframe" src="" allow="autoplay"
-            style="width: 100%;height: 100%;position: absolute;z-index: 9999;top:0;left:0;display:none;">
-    </iframe>
-
-</body>
-
+          loadingBar.style.display = "none";
+          fullscreenButton.onclick = () => {
+            unityInstance.SetFullscreen(1);
+          };
+        }).catch((message) => {
+          alert(message);
+        });
+      };
+      document.body.appendChild(script);
+    </script>
+  </body>
 </html>
