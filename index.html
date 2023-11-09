@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Unity WebGL Player | Avatar_SDK_MetaPerson2.0</title>
+    <title>Unity WebGL Player | SAvatar</title>
     <style>
         @keyframes rotate {
             from {
@@ -45,117 +45,49 @@
             display: none;
         }
 
-        #popup-copy,
-        #popup-copy-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.54);
-            z-index: 1000;
-            /* Ensures it's on top of other content */
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
+        #popup-copy, #popup-copy-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.54);
+  z-index: 1000; /* Ensures it's on top of other content */
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
 
-        #popup-copy-bg {
-            position: relative;
-            /* To position the text and button inside */
-            width: auto;
-            /* or set a specific size */
-            height: 40%;
-            /* or set a specific size */
-        }
+#popup-copy-bg {
+  position: relative; /* To position the text and button inside */
+  width: auto; /* or set a specific size */
+  height: 40%; /* or set a specific size */
+}
 
-        #popup-copy-text {
-            position: fixed;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: auto;
-            /* set to your desired width */
-            height: 3%;
-            /* set to your desired height */
-        }
+#popup-copy-text {
+  position: fixed;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto; /* set to your desired width */
+  height: 3%; /* set to your desired height */
+}
 
-        #popup-copy-button {
-            position: fixed;
-            top: 55%;
-            left: 50%;
-            background-color: rgba(0, 0, 0, 0);
-            transform: translate(-50%, -50%);
-            width: auto;
-            /* set to your desired width */
-            height: 7%;
-            /* set to your desired height */
-            cursor: pointer;
-            border: none;
-        }
-
-        #popup-copy-button-img {
-            width: auto;
-            /* set to your desired width */
-            height: 100%;
-            /* set to your desired height */
-        }
-
-        #popup-take,
-        #popup-take-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.54);
-            z-index: 1000;
-            /* Ensures it's on top of other content */
-            display: none;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #popup-take-bg {
-            position: relative;
-            /* To position the text and button inside */
-            width: auto;
-            /* or set a specific size */
-            height: 40%;
-            /* or set a specific size */
-        }
-
-        #popup-take-text {
-            position: fixed;
-            top: 45%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: auto;
-            /* set to your desired width */
-            height: 6%;
-            /* set to your desired height */
-        }
-
-        #popup-take-button {
-            position: fixed;
-            top: 55%;
-            left: 50%;
-            background-color: rgba(0, 0, 0, 0);
-            transform: translate(-50%, -50%);
-            width: auto;
-            /* set to your desired width */
-            height: 7%;
-            /* set to your desired height */
-            cursor: pointer;
-            border: none;
-        }
-
-        #popup-take-button-img {
-            width: auto;
-            /* set to your desired width */
-            height: 100%;
-            /* set to your desired height */
-        }
+#popup-copy-button {
+  position: fixed;
+  top: 55%;
+  left: 50%;
+  background-color: rgba(0, 0, 0, 0);
+  transform: translate(-50%, -50%);
+  width: auto; /* set to your desired width */
+  height: 7%; /* set to your desired height */
+  cursor: pointer;
+  border: none;
+}
+#popup-copy-button-img{
+    width: auto; /* set to your desired width */
+  height: 100%; /* set to your desired height */
+}
     </style>
 </head>
 
@@ -163,11 +95,11 @@
     <div id="bg"></div>
     <img src="./img/loading.png" id="loading" />
     <script src="./vconsole.min.js"></script>
-    <script type="text/javascript">// open web debugger console
-        window.VConsole && (window.vConsole = new VConsole());</script>
-    <canvas id="unity-canvas" width=960 height=600
-        style="width: 960px; height: 600px; background: #231F20"></canvas>
-    <script src="Build/AvatarBM.loader.js"></script>
+    <!--<script type="text/javascript">// open web debugger console
+        window.VConsole && (window.vConsole = new VConsole());</script>-->
+<canvas id="unity-canvas" width=1216 height=1624
+    style="width: 1216px; height: 1624px; background: #231F20"></canvas>
+    <script src="Build/SAvatars.loader.js"></script>
     <script type="module">async function importLib() {
             var lib = await import('./js/index.js');
             window.services_wsgw = lib.default;
@@ -196,47 +128,33 @@
         }
 
         createUnityInstance(document.querySelector("#unity-canvas"), {
-            dataUrl: "Build/AvatarBM.data.unityweb",
-            frameworkUrl: "Build/AvatarBM.framework.js.unityweb",
-        codeUrl: "Build/AvatarBM.wasm.unityweb",
+                    dataUrl: "Build/SAvatars.data.unityweb",
+            frameworkUrl: "Build/SAvatars.framework.js.unityweb",
+        codeUrl: "Build/SAvatars.wasm.unityweb",
         streamingAssetsUrl: "StreamingAssets",
             companyName: "DefaultCompany",
-            productName: "Avatar_SDK_MetaPerson2.0",
+            productName: "SAvatar",
             productVersion: "0.1",
             // matchWebGLToCanvasSize: false, // Uncomment this to separately control WebGL canvas render size and DOM element size.
             // devicePixelRatio: 1, // Uncomment this to override low DPI rendering on high DPI displays.
         }).then((unityInstance) => {
-                window.unityInstance = unityInstance;
-                var div = document.getElementById('bg');
-                var loader = document.getElementById('loading');
-                div.classList.add('hidden');
-                loader.classList.add('hidden');
-            });</script>
+            window.unityInstance = unityInstance;
+            var div = document.getElementById('bg');
+            var loader = document.getElementById('loading');
+            div.classList.add('hidden');
+            loader.classList.add('hidden');
+        });</script>
     <iframe id="game-iframe" src="" allow="autoplay"
-        style="width: 100%;height: 100%;position: absolute;z-index: 9999;top:0;left:0;display:none;">
+            style="width: 100%;height: 100%;position: absolute;z-index: 9999;top:0;left:0;display:none;">
     </iframe>
-
     <div id="popup-copy">
         <img id="popup-copy-bg" src="./Rectangle2.png">
-        <img id="popup-copy-text" src="./text.png"></img>
-        <button id="popup-copy-button">
-            <img id="popup-copy-button-img" src="./btn-ok.png"></img>
-        </button>
+            <img id="popup-copy-text" src="./text.png"></img>
+            <button id="popup-copy-button">
+                <img id="popup-copy-button-img" src="./btn-ok.png"></img>
+            </button>
         </img>
     </div>
-
-    <div id="popup-take">
-        <img id="popup-take-bg" src="./Rectangle2.png">
-        <img id="popup-take-text" src="./text2.png"></img>
-        <button id="popup-take-button">
-            <img id="popup-take-button-img" src="./btn-ok.png"></img>
-        </button>
-        </img>
-    </div>
-
-    <button id="elementId" style="display:none">
-
-    </button>
 
     <script>
         function copyToClipboard() {
@@ -251,17 +169,8 @@
             document.getElementById('popup-copy').style.display = 'none';
         }
 
-        function CloseTake() {
-            document.getElementById('popup-take').style.display = 'none';
-        }
-
-        const btn = document.getElementById('popup-take-button');
-        btn.onclick = CloseTake;
-
         const button = document.getElementById('popup-copy-button');
         button.onclick = copyToClipboard;
-
-
     </script>
 </body>
 
